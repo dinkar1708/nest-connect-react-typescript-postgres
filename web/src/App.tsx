@@ -1,32 +1,54 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { isLoggedIn } from './lib/auth'
+import { Login } from './pages/Login'
+import { Register } from './pages/Register'
+import { Home } from './pages/Home'
 import './App.css'
 
-function App() {
-  const [entered, setEntered] = useState(false)
+type Page = 'splash' | 'login' | 'register' | 'home'
 
-  if (entered) {
+function App() {
+  const [page, setPage] = useState<Page>('splash')
+
+  useEffect(() => {
+    if (page !== 'splash') return
+    const t = setTimeout(() => {
+      setPage(isLoggedIn() ? 'home' : 'login')
+    }, 2000)
+    return () => clearTimeout(t)
+  }, [page])
+
+  if (page === 'splash') {
     return (
-      <main className="app">
-        <div className="app-card">
-          <p>You&apos;re in. (Main app coming soon.)</p>
-          <button className="back-btn" onClick={() => setEntered(false)}>Back</button>
+      <main className="welcome splash">
+        <div className="welcome-card">
+          <h1>Welcome</h1>
+          <p className="project">NestConnect</p>
+          <p className="tagline">Social networking and chat</p>
         </div>
       </main>
     )
   }
 
-  return (
-    <main className="welcome">
-      <div className="welcome-card">
-        <h1>Welcome</h1>
-        <p className="project">NestConnect</p>
-        <p className="tagline">Social networking and chat</p>
-        <button className="enter" onClick={() => setEntered(true)}>
-          Enter
-        </button>
-      </div>
-    </main>
-  )
+  if (page === 'login') {
+    return (
+      <Login
+        onSuccess={() => setPage('home')}
+        onGoRegister={() => setPage('register')}
+      />
+    )
+  }
+
+  if (page === 'register') {
+    return (
+      <Register
+        onSuccess={() => setPage('home')}
+        onGoLogin={() => setPage('login')}
+      />
+    )
+  }
+
+  return <Home onLogout={() => setPage('login')} />
 }
 
 export default App
