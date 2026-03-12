@@ -3,9 +3,10 @@ import { isLoggedIn } from './lib/auth'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { Home } from './pages/Home'
+import { BrowseUsers } from './pages/BrowseUsers'
 import './App.css'
 
-type Page = 'splash' | 'login' | 'register' | 'home'
+type Page = 'splash' | 'login' | 'register' | 'home' | 'browse'
 
 function App() {
   const [page, setPage] = useState<Page>('splash')
@@ -48,7 +49,16 @@ function App() {
     )
   }
 
-  return <Home onLogout={() => setPage('login')} />
+  if (page === 'browse') {
+    return <BrowseUsers onBack={() => setPage('home')} />
+  }
+
+  return (
+    <Home
+      onLogout={() => setPage('login')}
+      onBrowseUsers={() => setPage('browse')}
+    />
+  )
 }
 
 export default App

@@ -1,17 +1,19 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1'
+const TOKEN_KEY = 'nestconnect_access_token'
 
 export async function api<T>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
   const url = `${API_BASE}${path}`
-  const res = await fetch(url, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  })
+  const token = localStorage.getItem(TOKEN_KEY)
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options.headers as Record<string, string>),
+  }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+
+  const res = await fetch(url, { ...options, headers })
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const msg = data?.message || data?.error || res.statusText

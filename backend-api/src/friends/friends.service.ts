@@ -39,7 +39,19 @@ export class FriendsService {
       },
     });
     if (reverse?.status === 'PENDING') {
-      return this.acceptRequest(senderId, receiverId);
+      return this.acceptRequest(senderId, reverse.id);
+    }
+    if (existing?.status === 'REJECTED') {
+      await this.prisma.friendRequest.update({
+        where: { id: existing.id },
+        data: { status: 'PENDING' },
+      });
+      return this.prisma.friendRequest.findUnique({
+        where: { id: existing.id },
+        include: {
+          receiver: { select: { id: true, name: true, email: true } },
+        },
+      });
     }
     return this.prisma.friendRequest.create({
       data: { senderId, receiverId },
