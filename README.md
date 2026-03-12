@@ -14,6 +14,8 @@ Social networking and chat app – users, friends, real-time messaging.
 
 **Test the web UI:** Run `npm run dev` in `web/`, then open [http://localhost:5173](http://localhost:5173)
 
+**Backend tests:** `cd backend-api && npm test && npm run test:e2e` — 2 unit + 15 e2e (auth, users, friends, chat) ✅
+
 ---
 
 ## Required Features / Roadmap
