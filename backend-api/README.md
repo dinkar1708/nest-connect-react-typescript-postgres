@@ -1,5 +1,7 @@
 # NestConnect Backend API
 
+**Project:** nestjs-react-typescript-friend-service
+
 NestJS API – auth, users, friends, real-time chat. Port 4000.
 
 **Start**

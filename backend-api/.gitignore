@@ -1,10 +1,12 @@
+# NestJS / Node
 node_modules/
 dist/
 .env
 .env.prod
 .env.local
-.env.*.local
 *.log
 coverage/
+
+# Prisma
 *.db
 *.db-journal

@@ -1,7 +1,18 @@
+# React Native / Expo
 node_modules/
 dist/
-build/
 .env
 .env.prod
 .env.local
 *.log
+
+# Expo
+.expo/
+web-build/
+
+# iOS / Android
+ios/Pods/
+android/build/
+android/.gradle/
+*.apk
+*.aab
