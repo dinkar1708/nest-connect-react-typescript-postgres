@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: nestconnect-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: nestconnect_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - nestconnect_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: nestconnect-api
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/nestconnect_dev
+      JWT_SECRET: dev_secret_key
+      PORT: 4000
+      NODE_ENV: development
+    ports:
+      - "4000:4000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  nestconnect_pg_data:
