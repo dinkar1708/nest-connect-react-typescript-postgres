@@ -8,13 +8,13 @@ React + TypeScript + Vite frontend for NestConnect.
 
 | Layer | Tech |
 |-------|------|
-| Framework | React 19 |
+| Framework | React v19 |
 | Language | TypeScript |
-| Build | Vite |
+| Build Tool | Vite v7 |
 | Styling | CSS |
-| Lint | ESLint |
+| Linting | ESLint |
 
-**SEO** — Client-side SPA; crawlers must execute JS. To improve: add meta description and Open Graph in `index.html`; use `react-helmet-async` for per-page meta; or migrate to SSR (Next.js/Remix).
+**SEO** — No SSR (Client-side only) - Not suitable for content-heavy/SEO-critical apps. To achieve SEO: Migrate to Next.js (SSR/SSG), use Remix, or implement react-snap for pre-rendering.
 
 **Start**
 ```bash
