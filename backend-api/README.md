@@ -4,6 +4,21 @@
 
 NestJS API – auth, users, friends, real-time chat. Port 4000.
 
+**Technology stack**
+
+| Layer | Tech |
+|-------|------|
+| Runtime | Node.js |
+| Framework | NestJS 11 |
+| Language | TypeScript |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Auth | JWT (Passport), bcrypt |
+| Validation | class-validator, class-transformer |
+| API docs | Swagger (OpenAPI) |
+| Real-time | Socket.IO (@nestjs/platform-socket.io) |
+| Testing | Jest, Supertest |
+
 **Start**
 ```bash
 npm install
